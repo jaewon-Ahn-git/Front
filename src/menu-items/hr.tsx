@@ -189,31 +189,31 @@ const hr: NavItemType = {
               id: 'dayAttendance',
               title: <FormattedMessage id="dayAttendance" />,
               type: 'item',
-              url: '/hr/attendance/DailyAttdRegistration/DailyAttdRegistPage'
+              url: '/hr/attendance/attdReqAndReg/DailyAttdRegistration/DailyAttdRegistPage'
             },
             {
               id: 'restAttendanceRegist',
               title: <FormattedMessage id="restAttendanceRegist" />,
               type: 'item',
-              url: '/hr/attendance/RestAttendance/RestAttdRegistPage'
+              url: '/hr/attendance/attdReqAndReg/restAttendance/RestAttdRegistPage'
             },
             {
               id: 'breakAttendanceRegist',
               title: <FormattedMessage id="breakAttendanceRegist" />,
               type: 'item',
-              url: '/hr/attendance/BreakAttendance/BreakAttdRegistPage'
+              url: '/hr/attendance/attdReqAndReg/BreakAttendance/BreakAttdRegistPage'
             },
             {
               id: 'businessRegist',
               title: <FormattedMessage id="businessRegist" />,
               type: 'item',
-              url: '/hr/attendance/RestAttendance/BusinessRegistPage'
+              url: '/hr/attendance/attdReqAndReg/BusinessRegistPage'
             },
             {
               id: 'overtimeRegist',
               title: <FormattedMessage id="overtimeRegist" />,
               type: 'item',
-              url: '/hr/attendance/RestAttendance/OvertimeRegistPage'
+              url: '/hr/attendance/attdReqAndReg/OvertimeRegistPage'
             }
           ]
         },
@@ -227,7 +227,7 @@ const hr: NavItemType = {
               id: 'dayAttendanceManagement',
               title: <FormattedMessage id="dayAttendanceManagement" />,
               type: 'item',
-              url: '/hr/attendance/DailyAttdManage/DailyAttdManagePage'
+              url: '/hr/attendance/attendanceApproval/DailyAttdManage/DailyAttdManagePage'
             },
             {
               id: 'monthAttendanceManagement',
