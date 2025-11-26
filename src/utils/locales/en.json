@@ -26,6 +26,9 @@
   "personnelAppointmentRegist": "인사발령 등록",
   "personnelAppointmentInfo": "인사발령 조회",
 
+  "attendanceManagementPractice": "근태 연습",
+  "attendancePractice": "출입기록 등록",
+
   "attendanceManagement": "근태 관리",
   "attendanceRegist": "근태 신청 및 등록",
   "dayAttendance": "일근태 등록",

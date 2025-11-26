@@ -19,12 +19,14 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { gridSpacing } from 'store/constant';
-import { AnnualLeaveMgtTO, restAttdTO } from '../../types/types';
+
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { RootState, useDispatch } from 'store';
 import { attdActions } from 'store/redux-saga/reducer/attendance/attendanceReducer';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
+import { AnnualLeaveMgtTO } from 'types/attendance/types';
+import { restAttdTO } from '../types/types';
 
 const RestAttdRegistPage = () => {
   const dispatch = useDispatch();
@@ -60,6 +62,7 @@ const RestAttdRegistPage = () => {
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
     setRequestDate(`${year}-${month}-${day}`);
+    console.log(empLists);
   }, []);
 
   useEffect(() => {
@@ -67,12 +70,11 @@ const RestAttdRegistPage = () => {
   }, [rawList]);
 
   const empLists = empList.map((item) => {
-    if (item.empCode === localStorage.getItem('empCode'))
-      return (
-        <MenuItem value={item.empCode} key={item.empCode}>
-          {item.empName}
-        </MenuItem>
-      );
+    return (
+      <MenuItem value={item.empCode} key={item.empCode}>
+        {item.empName}
+      </MenuItem>
+    );
   });
 
   // 근태코드 세팅

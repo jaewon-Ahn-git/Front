@@ -1,4 +1,3 @@
-
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 interface ColumnProps {
@@ -30,7 +29,7 @@ export interface RestAttdTO {
   requestDate: string;
   startDate: string;
   endDate: string;
-  startTime: string
+  startTime: string;
   endTime: string;
   numberOfDays: string;
   cause: string;
@@ -47,7 +46,7 @@ export interface dailyAttdEntity {
   workHour: string;
   latenessStatus: string;
   overWorkHour: string;
-  nightWorkHour:string;
+  nightWorkHour: string;
   finalizeStatus: string;
   earlyLeaveTime: string;
 }
@@ -66,11 +65,16 @@ export interface ModifyDayAttdEntity {
   finalizeStatus: string;
 }
 
+export interface AttendancePracticeTo {
+  empCode: string;
+  date: string;
+  time: string;
+  inOutType: 'IN' | 'OUT';
+}
 export interface CustomColDef extends GridColDef {
   headerCheckboxSelection?: boolean;
   checkboxSelection?: boolean;
 }
-
 
 // saga types
 export type typeAction = { payload: any; type: string };

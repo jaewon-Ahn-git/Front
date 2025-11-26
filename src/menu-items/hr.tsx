@@ -174,6 +174,20 @@ const hr: NavItemType = {
       ]
     },
     {
+      id: 'attendanceManagementPractice',
+      title: <FormattedMessage id="attendanceManagementPractice" />,
+      type: 'collapse',
+      icon: IconCar,
+      children: [
+        {
+          id: 'attendancePractice',
+          title: <FormattedMessage id="attendancePractice" />,
+          type: 'item',
+          url: '/hr/attendancePractice'
+        }
+      ]
+    },
+    {
       id: 'attendanceManagement',
       title: <FormattedMessage id="attendanceManagement" />,
       type: 'collapse',
@@ -195,7 +209,7 @@ const hr: NavItemType = {
               id: 'restAttendanceRegist',
               title: <FormattedMessage id="restAttendanceRegist" />,
               type: 'item',
-              url: '/hr/attendance/attdReqAndReg/restAttendance/RestAttdRegistPage'
+              url: '/hr/attendance/attdReqAndReg/RestAttdRegistPage'
             },
             {
               id: 'breakAttendanceRegist',

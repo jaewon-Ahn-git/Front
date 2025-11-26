@@ -154,15 +154,11 @@ export default function DailyAttendModal(props: { toggle: () => void }) {
       alert('부서를 먼저 선택해주세요.');
     }
   };
-  const empLists = empList.map((item: any) => {
-    if (item.empCode === localStorage.getItem('empCode'))
-      return (
-        <MenuItem value={item.empCode} key={item.empCode}>
-          {item.empName}
-        </MenuItem>
-      );
-  });
-
+  const empLists = empList.map((item: any) => (
+    <MenuItem value={item.empCode} key={item.empCode}>
+      {item.empName}
+    </MenuItem>
+  ));
   const deptLists = deptList.map((item: any) => {
     return (
       <MenuItem value={item.deptCode} key={item.deptCode}>
