@@ -31,6 +31,7 @@ import empcardReducer from 'pages/hr/empManagement/slices/empCardReducer';
 import certificateIssuanceReducer from 'store/redux-saga/reducer/base/certificateIssuanceReducer';
 import certificationsNameReducer from './redux-saga/reducer/base/certificationsNameReducer';
 import languageSkillsReducer from './redux-saga/reducer/base/languageSkillsReducer';
+import attdPracticeReducer from './slices/hr/attendancePractice/attendancePracticeReducer';
 
 // ==============================|| COMBINE REDUCER ||============================== //
 
@@ -62,6 +63,7 @@ const reducer = combineReducers({
   languageSkills: languageSkillsReducer,
   holidayList: holidayReducer,
   empManagement: empManagementReducer,
+  attdPractice: attdPracticeReducer,
   attdReducer: attdReducer, // 근태리듀서
   dailyAttend: DailyAttendReducer, // 일근태등록리듀서
   baseReducer: baseReducer, // 권한리듀서

@@ -14,6 +14,7 @@ import { empCardSaga } from 'pages/hr/empManagement/saga/empCardSaga';
 import certificateIssuanceSaga from 'store/redux-saga/saga/base/certificateIssuanceSaga';
 import certificationsNameSaga from 'store/redux-saga/saga/base/certificationsNameSaga';
 import languageSkillsSaga from 'store/redux-saga/saga/base/languageSkillsSaga';
+import attdPracticeSaga from '../saga/hr/attendancePractice/attendancePracticeSaga';
 
 function* rootSaga() {
   yield all([
@@ -31,7 +32,8 @@ function* rootSaga() {
     fork(certificateIssuanceSaga),
     fork(certificationsNameSaga),
     fork(languageSkillsSaga),
-    fork(empCardSaga)
+    fork(empCardSaga),
+    fork(attdPracticeSaga)
   ]);
 }
 
