@@ -184,6 +184,12 @@ const hr: NavItemType = {
           title: <FormattedMessage id="attendancePractice" />,
           type: 'item',
           url: '/hr/attendancePractice'
+        },
+        {
+          id: 'restAttendanceRegist',
+          title: <FormattedMessage id="restAttendanceRegist" />,
+          type: 'item',
+          url: '/hr/attendancePractice/RestAttdRegistPage'
         }
       ]
     },
@@ -204,12 +210,6 @@ const hr: NavItemType = {
               title: <FormattedMessage id="dayAttendance" />,
               type: 'item',
               url: '/hr/attendance/attdReqAndReg/DailyAttdRegistration/DailyAttdRegistPage'
-            },
-            {
-              id: 'restAttendanceRegist',
-              title: <FormattedMessage id="restAttendanceRegist" />,
-              type: 'item',
-              url: '/hr/attendance/attdReqAndReg/RestAttdRegistPage'
             },
             {
               id: 'breakAttendanceRegist',

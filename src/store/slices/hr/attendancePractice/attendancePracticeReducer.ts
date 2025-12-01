@@ -32,10 +32,14 @@ const attdPracticeSlice = createSlice({
 
     // Saga가 API 호출 실패 후 디스패치하는 액션
     REGIST_INOUT_FAILURE(state, action) {
-      console.log('출입 기록 등록 실패', action.payload);
       state.loading = false;
       state.errorMsg = action.payload.errorMsg || '알 수 없는 오류가 발생했습니다.';
       state.errorCode = action.payload.errorCode || 'ERROR';
+      console.error('출입기록 등록 실패:', {
+        loading: state.loading,
+        errorMsg: state.errorMsg,
+        errorCode: state.errorCode
+      });
     }
   }
 });

@@ -22,11 +22,12 @@ import { gridSpacing } from 'store/constant';
 
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { RootState, useDispatch } from 'store';
-import { attdActions } from 'store/redux-saga/reducer/attendance/attendanceReducer';
+
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { AnnualLeaveMgtTO } from 'types/attendance/types';
-import { restAttdTO } from '../types/types';
+import { restAttdTO } from '../attendance/types/types';
+import { restAttdActions } from 'store/slices/hr/attendancePractice/restattdPractice';
 
 const RestAttdRegistPage = () => {
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ const RestAttdRegistPage = () => {
 
   // 사원리스트 세팅
   useEffect(() => {
-    dispatch(attdActions.getEmpListRequest());
+    dispatch(restAttdActions.getEmpListRequest());
 
     const today = new Date();
     const year = today.getFullYear();
