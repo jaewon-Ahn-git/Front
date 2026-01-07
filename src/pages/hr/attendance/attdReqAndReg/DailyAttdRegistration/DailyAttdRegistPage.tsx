@@ -23,7 +23,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 import DailyAttendInsertModal from './DailyAttendInsertModal';
 import { dailyAttdEntity } from 'pages/hr/attendance/types/types';
-import { dailyAttendAction } from 'store/redux-saga/reducer/attendance/DailyAttendReducer';
+import { dailyAttendAction } from 'store/slices/hr/attendancePractice/DailyAttendReducer';
 import Swal from 'sweetalert2';
 
 function DailyAttendRegist() {

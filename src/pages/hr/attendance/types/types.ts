@@ -35,6 +35,7 @@ export interface RestAttdTO {
 }
 
 export interface dailyAttdEntity {
+  empCode: string;
   empName: string;
   deptName: string;
   attendTime: string;

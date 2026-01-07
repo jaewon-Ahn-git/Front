@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AttendancePracticeTo } from 'types/attendance/types';
+import { createSlice } from '@reduxjs/toolkit';
 
 type AttdPracticeState = {
   loading: boolean;
@@ -17,8 +16,8 @@ const attdPracticeSlice = createSlice({
   name: 'attdPracticeReducer',
   initialState,
   reducers: {
-    REGIST_INOUT_REQUEST(state, action: PayloadAction<AttendancePracticeTo>) {
-      console.log('출입 기록 등록 시작', action.payload);
+    REGIST_INOUT_REQUEST(state, action) {
+      console.log('출입 기록 등록 시작: ', action.payload);
       state.loading = true;
       state.errorMsg = null;
       state.errorCode = '';

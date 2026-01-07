@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import {
-  Avatar,
   Box,
   Button,
   CardActions,
@@ -12,29 +11,26 @@ import {
   MenuItem,
   Select,
   Stack,
-  TextField,
-  Typography
+  TextField
 } from '@mui/material';
 import Layout from 'layout';
 import Page from 'components/ui-component/Page';
 import MainCard from 'ui-component/cards/MainCard';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { gridSpacing } from 'store/constant';
-import ErrorTwoToneIcon from '@mui/icons-material/ErrorTwoTone';
 import moment from 'moment';
-import { AnnualLeaveMgtTO, restAttdTO } from '../../types/types';
+
 import { useSelector } from 'react-redux';
 import { RootState, useDispatch } from 'store';
-import { attdActions } from 'store/redux-saga/reducer/attendance/attendanceReducer';
+
+import { restAttdTO } from '../attendance/types/types';
+import { restAttdActions } from 'store/slices/hr/attendancePractice/restattdPracticeReducer';
 
 // ==============================|| PROFILE 2 ||============================== //
 
 const BreakAttendancePage = () => {
   const dispatch = useDispatch();
-  const rawList = useSelector((state: RootState) => state.attdReducer.empList);
-
-  // 당일 날짜
-  const today = moment().format('YYYY-MM-DD');
+  const rawList = useSelector((state: RootState) => state.restAttdPractice.empList); //사원 조회용도
 
   // 사원코드
   const [empCode, setEmpCode] = useState('');
@@ -56,25 +52,25 @@ const BreakAttendancePage = () => {
   const [endTime, setEndTime] = useState('');
 
   // 사원리스트
-  const [empList, setEmpList] = useState<AnnualLeaveMgtTO[]>([]);
+  const [empList, setEmpList] = useState<any[]>([]);
 
   //사원조회하기위함
   useEffect(() => {
-    dispatch(attdActions.getEmpListRequest());
-  }, []);
+    dispatch(restAttdActions.getEmpListRequest());
+  }, [dispatch]);
 
   useEffect(() => {
     setEmpList(rawList);
   }, [rawList]);
 
   const empLists = empList.map((item) => {
-    if (item.empCode === localStorage.getItem('empCode'))
-      return (
-        <MenuItem value={item.empCode} key={item.empCode}>
-          {item.empName}
-        </MenuItem>
-      );
+    return (
+      <MenuItem value={item.empCode} key={item.empCode}>
+        {item.empName}
+      </MenuItem>
+    );
   });
+
   const insertEXAttd = () => {
     // 유효성 검사
     if (!attdType) {
@@ -89,6 +85,8 @@ const BreakAttendancePage = () => {
       alert('종료일을 선택 해주세요.');
       return;
     }
+    // 연차(전일) 선택 시 시간은 필요 없지만, 유효성 검사를 임시로 비활성화하거나 조건부로 처리해야 할 수 있습니다.
+    // 현재는 모든 경우에 시간을 요구하는 유효성 검사를 유지합니다.
     if (!startTime) {
       alert('시작시간을 선택 해주세요.');
       return;
@@ -106,22 +104,24 @@ const BreakAttendancePage = () => {
       return;
     }
 
+    // 현재 날짜 및 시간 (백엔드의 'YYYY-MM-DD HH24:MI:SS' 포맷에 맞춤)
+    const currentTimestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     const restAttdTO = {
       empCode,
       attdCode,
       attdType,
-      requestDate: today,
+      requestDate: currentTimestamp, // 👈 수정된 부분: 현재 시간까지 포함
       startDate,
       endDate,
-      startTime: startTime.replace(/:/g, ''),
-      endTime: endTime.replace(/:/g, ''),
+      startTime,
+      endTime,
       cause
     } as restAttdTO;
+
     //연차 신청을 하기위해 restAttdTO에 데이터를 담아 api로 보냄
-    dispatch(attdActions.registBreakAttdRequest(restAttdTO));
+    dispatch(restAttdActions.registBreakAttdRequest(restAttdTO));
 
     alert('신청이 완료 되었습니다.');
-    window.location.reload();
   };
 
   /* 일수 계산 함수  */
@@ -145,28 +145,6 @@ const BreakAttendancePage = () => {
               <Grid item xs={12}>
                 <CardContent>
                   <Grid container spacing={gridSpacing}>
-                    <Grid item xs={12}>
-                      <Grid container spacing={2} alignItems="center">
-                        <Grid item>
-                          <Avatar alt="User 1" src="/assets/images/users/avatar-7.png" sx={{ height: 80, width: 80 }} />
-                        </Grid>
-                        <Grid item sm zeroMinWidth>
-                          <Grid container spacing={1}>
-                            <Grid item xs={12}>
-                              <Stack direction="row" spacing={2} alignItems="center">
-                                <input accept="image/*" style={{ display: 'none' }} id="contained-button-file" multiple type="file" />
-                              </Stack>
-                            </Grid>
-                            <Grid item xs={12}>
-                              <Typography variant="caption">
-                                <ErrorTwoToneIcon sx={{ height: 16, width: 16, mr: 1, verticalAlign: 'text-bottom' }} />
-                                Image size Limit should be 125kb Max.
-                              </Typography>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
                     <Grid item xs={12} sm={6}>
                       <Box sx={{ minWidth: 120 }}>
                         <FormControl fullWidth>

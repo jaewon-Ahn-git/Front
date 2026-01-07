@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 import { dailyAttdEntity } from 'pages/hr/attendance/types/types';
 import { useDispatch } from 'react-redux';
-import { dailyAttendAction } from 'store/redux-saga/reducer/attendance/DailyAttendReducer';
+import { dailyAttendAction } from 'store/slices/hr/attendancePractice/DailyAttendReducer';
 import { useTheme } from '@mui/material/styles';
 
 export default function DailyAttendModal(props: { toggle: () => void; emp: dailyAttdEntity[] }) {

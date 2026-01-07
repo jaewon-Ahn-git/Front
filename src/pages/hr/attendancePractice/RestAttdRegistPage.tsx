@@ -19,25 +19,22 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { gridSpacing } from 'store/constant';
-
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { RootState, useDispatch } from 'store';
-
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import { AnnualLeaveMgtTO } from 'types/attendance/types';
 import { restAttdTO } from '../attendance/types/types';
-import { restAttdActions } from 'store/slices/hr/attendancePractice/restattdPractice';
+import { restAttdActions } from 'store/slices/hr/attendancePractice/restattdPracticeReducer';
+import moment from 'moment';
 
 const RestAttdRegistPage = () => {
   const dispatch = useDispatch();
-  const rawList = useSelector((state: RootState) => state.attdReducer.empList);
+  const rawList = useSelector((state: RootState) => state.restAttdPractice.empList);
 
-  const [empList, setEmpList] = useState<AnnualLeaveMgtTO[]>([]);
+  const [empList, setEmpList] = useState<any[]>([]);
   const [empCode, setEmpCode] = useState<string>('');
   const [attdCode, setAttdCode] = useState<string>('');
   const [attdType, setAttdType] = useState<string>('');
-  const [requestDate, setRequestDate] = useState<string>('');
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
   const [startTime, setStartTime] = useState<string>('');
@@ -54,17 +51,10 @@ const RestAttdRegistPage = () => {
     setCause('');
   };
 
-  // 사원리스트 세팅
+  // 사원리스트 세팅 및 초기 로직 정리
   useEffect(() => {
     dispatch(restAttdActions.getEmpListRequest());
-
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-    setRequestDate(`${year}-${month}-${day}`);
-    console.log(empLists);
-  }, []);
+  }, [dispatch]); // dispatch 의존성 추가
 
   useEffect(() => {
     setEmpList(rawList);
@@ -79,7 +69,6 @@ const RestAttdRegistPage = () => {
   });
 
   // 근태코드 세팅
-  //사용자가 드랍메뉴에서 고른 값이 e.target.value에 담기게된다.
   const attdTypeSetting = (e: any) => {
     setAttdCode(e.target.value);
     if (e.target.value === 'ADC006') setAttdType('외출');
@@ -106,23 +95,27 @@ const RestAttdRegistPage = () => {
         text: '신청 시간이 잘못되었습니다.'
       });
     } else {
+      // 💡 신청 버튼 클릭 시 현재 시각을 포함한 신청일시 (requestDate) 계산
+      const currentTimestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+
       const restAttdTO = {
         empCode,
         attdCode,
         attdType,
-        requestDate,
+        requestDate: currentTimestamp, // 💡 시각 포함 값으로 대체
         startDate,
         endDate,
-        startTime: startTime.replace(/:/g, ''),
-        endTime: endTime.replace(/:/g, ''),
+        startTime,
+        endTime,
         cause
       } as restAttdTO;
       console.log('추가 폼 :', restAttdTO);
+
       // restAttdTO에 데이터를 담아 사가->api->리듀서순으로 가게됨
-      dispatch(attdActions.registRestAttdRequest(restAttdTO));
+      dispatch(restAttdActions.registRestAttdRequest(restAttdTO));
       // setSnackBarVisible를 보여줌
       setSnackBarVisible(true);
-      //창을 리셋
+      // 창을 리셋
       reset();
     }
   };

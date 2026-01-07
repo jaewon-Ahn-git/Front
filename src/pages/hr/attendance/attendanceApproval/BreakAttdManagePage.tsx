@@ -11,7 +11,7 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { gridSpacing } from 'store/constant';
 
 // assets
-import { breakAttdTO } from '../../types/types';
+import { breakAttdTO } from '../types/types';
 import { useDispatch, useSelector } from 'store';
 import { attdActions } from 'store/redux-saga/reducer/attendance/attendanceReducer';
 import Swal from 'sweetalert2';

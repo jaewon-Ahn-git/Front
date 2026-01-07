@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { dailyAttendAction } from 'store/redux-saga/reducer/attendance/DailyAttendReducer';
+import { dailyAttendAction } from 'store/slices/hr/attendancePractice/DailyAttendReducer';
 import { useTheme } from '@mui/material/styles';
 
 // 코드가 긴 관계로 각각의 입력값에 따른 유효성 검사 로직은 작성하지 않았습니다.

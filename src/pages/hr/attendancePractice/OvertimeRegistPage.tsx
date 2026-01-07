@@ -19,22 +19,23 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { gridSpacing } from 'store/constant';
-import { AnnualLeaveMgtTO, restAttdTO } from '../types/types';
+
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { RootState, useDispatch } from 'store';
-import { attdActions } from 'store/redux-saga/reducer/attendance/attendanceReducer';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
+import moment from 'moment';
+import { restAttdTO } from '../attendance/types/types';
+import { restAttdActions } from 'store/slices/hr/attendancePractice/restattdPracticeReducer';
 
 const OvertimeRegistPage = () => {
   const dispatch = useDispatch();
   const rawList = useSelector((state: RootState) => state.attdReducer.empList);
 
-  const [empList, setEmpList] = useState<AnnualLeaveMgtTO[]>([]);
+  const [empList, setEmpList] = useState<any[]>([]);
   const [empCode, setEmpCode] = useState<string>('');
   const [attdCode, setAttdCode] = useState<string>('');
   const [attdType, setAttdType] = useState<string>('');
-  const [requestDate, setRequestDate] = useState<string>('');
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
   const [startTime, setStartTime] = useState<string>('');
@@ -53,27 +54,19 @@ const OvertimeRegistPage = () => {
 
   // 사원리스트 세팅
   useEffect(() => {
-    dispatch(attdActions.getEmpListRequest());
-
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-
-    setRequestDate(`${year}-${month}-${day}`);
-  }, []);
+    dispatch(restAttdActions.getEmpListRequest());
+  }, [dispatch]);
 
   useEffect(() => {
     setEmpList(rawList);
   }, [rawList]);
 
   const empLists = empList.map((item) => {
-    if (item.empCode === localStorage.getItem('empCode'))
-      return (
-        <MenuItem value={item.empCode} key={item.empCode}>
-          {item.empName}
-        </MenuItem>
-      );
+    return (
+      <MenuItem value={item.empCode} key={item.empCode}>
+        {item.empName}
+      </MenuItem>
+    );
   });
 
   // 근태코드 세팅
@@ -101,20 +94,21 @@ const OvertimeRegistPage = () => {
         title: '신청 시간이 잘못되었습니다.'
       });
     } else {
+      const currentTimestamp = moment().format('YYYY-MM-DD HH:mm:ss');
       const restAttdTO = {
         empCode,
         attdCode,
         attdType,
-        requestDate,
+        requestDate: currentTimestamp,
         startDate,
         endDate,
-        startTime: startTime.replace(/:/g, ''),
-        endTime: endTime.replace(/:/g, ''),
+        startTime,
+        endTime,
         cause
       } as restAttdTO;
       console.log('추가 폼 :', restAttdTO);
 
-      dispatch(attdActions.registRestAttdRequest(restAttdTO));
+      dispatch(restAttdActions.registOvertimeAttdRequest(restAttdTO));
 
       setSnackBarVisible(true);
 

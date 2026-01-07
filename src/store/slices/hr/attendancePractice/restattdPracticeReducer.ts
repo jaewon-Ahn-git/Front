@@ -21,8 +21,8 @@ const restAttdSlice = createSlice({
   name: 'restAttdReducer',
   initialState,
   reducers: {
-    getEmpListRequest(state, action) {
-      console.log('근태외신청 사원리스트 요청', action.payload);
+    getEmpListRequest(state) {
+      console.log('근태외신청 사원리스트 요청');
       state.loading = true;
       state.errorMsg = null;
       state.errorCode = '';
@@ -48,13 +48,72 @@ const restAttdSlice = createSlice({
     },
     registRestAttdRequest(state, action) {
       console.log('근태외신청 등록 요청', action.payload);
+      state.loading = true;
+      state.errorMsg = null;
+      state.errorCode = '';
     },
     registRestAttdSuccess(state, action) {
       state.restAttdList = action.payload;
       console.log('근태외신청 등록 성공', action.payload);
+      state.loading = false;
+      state.errorMsg = null;
+      state.errorCode = '';
     },
     registRestAttdFailure(state, action) {
-      console.log('근태외신청 등록 실패', action.payload);
+      state.loading = false;
+      state.errorMsg = action.payload.errorMsg;
+      state.errorCode = action.payload.errorCode;
+      console.error('근태외신청 등록 실패:', {
+        loading: state.loading,
+        errorMsg: state.errorMsg,
+        errorCode: state.errorCode
+      });
+    },
+    registBreakAttdRequest(state, action) {
+      console.log('연차신청 등록 요청', action.payload);
+      state.loading = true;
+      state.errorMsg = null;
+      state.errorCode = '';
+    },
+    registBreakAttdSuccess(state, action) {
+      state.restAttdList = action.payload;
+      console.log('연차신청 등록 성공', action.payload);
+      state.loading = false;
+      state.errorMsg = null;
+      state.errorCode = '';
+    },
+    registBreakAttdFailure(state, action) {
+      state.loading = false;
+      state.errorMsg = action.payload.errorMsg;
+      state.errorCode = action.payload.errorCode;
+      console.error('연차신청 등록 실패:', {
+        loading: state.loading,
+        errorMsg: state.errorMsg,
+        errorCode: state.errorCode
+      });
+    },
+    registOvertimeAttdRequest(state, action) {
+      console.log('초과근무 신청 요청', action.payload);
+      state.loading = true;
+      state.errorMsg = null;
+      state.errorCode = '';
+    },
+    registOvertimeAttdSuccess(state, action) {
+      state.restAttdList = action.payload;
+      console.log('초과근무 신청 성공', action.payload);
+      state.loading = false;
+      state.errorMsg = null;
+      state.errorCode = '';
+    },
+    registOvertimeAttdFailure(state, action) {
+      state.loading = false;
+      state.errorMsg = action.payload.errorMsg;
+      state.errorCode = action.payload.errorCode;
+      console.error('초과근무 신청 실패:', {
+        loading: state.loading,
+        errorMsg: state.errorMsg,
+        errorCode: state.errorCode
+      });
     }
   }
 });

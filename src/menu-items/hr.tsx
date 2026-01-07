@@ -190,6 +190,32 @@ const hr: NavItemType = {
           title: <FormattedMessage id="restAttendanceRegist" />,
           type: 'item',
           url: '/hr/attendancePractice/RestAttdRegistPage'
+        },
+        {
+          id: 'breakAttendanceRegist',
+          title: <FormattedMessage id="breakAttendanceRegist" />,
+          type: 'item',
+          url: '/hr/attendancePractice/BreakAttdRegistPage'
+        },
+        {
+          id: 'overtimeRegist',
+          title: <FormattedMessage id="overtimeRegist" />,
+          type: 'item',
+          url: '/hr/attendancePractice/OvertimeRegistPage'
+        },
+        {
+          id: 'attendanceApproval',
+          title: <FormattedMessage id="attendanceApproval" />,
+          type: 'collapse',
+          icon: IconEyeCheck,
+          children: [
+            {
+              id: 'dayAttendanceManagement',
+              title: <FormattedMessage id="dayAttendanceManagement" />,
+              type: 'item',
+              url: '/hr/attendancePractice/DailyAttdManage/DailyAttdManagePage'
+            }
+          ]
         }
       ]
     },

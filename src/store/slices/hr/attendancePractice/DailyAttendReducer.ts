@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-type dayAttdlist = { dayAttdlist: any[]; empCode: string; empList: any[]; deptlist: any[];};
+type dayAttdlist = { dayAttdlist: any[]; empCode: string; empList: any[]; deptlist: any[] };
 
 let initialState: dayAttdlist = { dayAttdlist: [], empCode: '', empList: [], deptlist: [] };
 
 const dailyAttendSlice = createSlice({
-  name: 'dailyAttendInsertResult',
+  name: 'dailyAttendReducer',
   initialState: initialState,
   reducers: {
     DAILY_ATTEND_INSERT_FETCH_REQUESTED(state, action) {

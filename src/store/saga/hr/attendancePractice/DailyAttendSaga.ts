@@ -1,7 +1,7 @@
-import { dailyAttendAction } from 'store/redux-saga/reducer/attendance/DailyAttendReducer';
+import { dailyAttendAction } from 'store/slices/hr/attendancePractice/DailyAttendReducer';
 import { takeEvery, all, call, put } from 'redux-saga/effects';
 import * as api from 'store/redux-saga/api/attendance';
-import {deptListManage} from 'store/api/base';
+import { deptListManage } from 'store/api/base';
 import { typeAction } from 'types/attendance/types';
 import { AxiosResponse } from 'axios';
 
@@ -55,8 +55,6 @@ export function* searchDeptListSaga(action: typeAction) {
   yield put(dailyAttendAction.DEPT_LIST_SEARCH_FETCH_STATUS(response.data.list));
 }
 
-
-
 // action과 api 요청을 보내주는 함수를 호출하는 saga를 연결해주는 saga
 // empEvalResultAction.DAILY_ATTEND_RESULT_FETCH_REQUESTED는 액션생성함수를 호출하여 액션을 생성함.
 export function* onDailyAttendSaga() {
@@ -66,7 +64,6 @@ export function* onDailyAttendSaga() {
   yield takeEvery(dailyAttendAction.DAILY_ATTEND_SEARCH_EMPLIST_FETCH_REQUESTED, dailyAttendSearchEmplistSaga);
   yield takeEvery(dailyAttendAction.DAILY_ATTEND_FINALIZE_FETCH_REQUESTED, dailyAttendFinalizeSaga);
   yield takeEvery(dailyAttendAction.DEPT_LIST_SEARCH_FETCH_REQUESTED, searchDeptListSaga);
-
 }
 
 export default function* dailyAttendSaga() {
